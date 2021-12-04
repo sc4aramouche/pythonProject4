@@ -1,4 +1,8 @@
-proffesions = [
+import re
+
+file = open('data.txt', mode='r', encoding='utf-8-sig')
+data = file.readlines()
+professions = [
     {
         'id': 1,
         'title': 'პროგრამისტი',
@@ -8,99 +12,30 @@ proffesions = [
         'title': 'მომღერალი',
     },
 ]
+array = []
 
-array = [
-    {
-        'name': 'ცოტნე შარვაძე',
-        'year': 1997,
-        'profession_id': 1,
-        'experience': 7,
-    },
-    {
-        'name': 'გივი სიხარულიძე',
-        'year': 1997,
-        'profession_id': 2,
-        'experience': 72,
-    },
-    {
-        'name': 'ცოტნე1 შარვ3აძე',
-        'year': 1957,
-        'profession_id': 1,
-        'experience': 3,
-    },
-    {
-        'name': 'ცოტნე2 შარვ3აძე',
-        'year': 13987,
-        'profession_id': 2,
-        'experience': 7,
-    },
-    {
-        'name': 'ცოტნე3 შარვ3აძე',
-        'year': 1997,
-        'profession_id': 2,
-        'experience': 2,
-    },
-    {
-        'name': 'ცოტნე4 შარვ3აძე',
-        'year': 1957,
-        'profession_id': 1,
-        'experience': 7,
-    },
-    {
-        'name': 'ცოტნე4 შა3რვაძე',
-        'year': 1990,
-        'profession_id': 2,
-        'experience': 6,
-    },
-    {
-        'name': 'ცოტნე შარვ3აძე',
-        'year': 1991,
-        'profession_id': 1,
-        'experience': 7,
-    },
-    {
-        'name': 'ცოტნე შარვა3ძე',
-        'year': 1997,
-        'profession_id': 2,
-        'experience': 12,
-    },
-    {
-        'name': 'ცოტნე55 შა3რვაძე',
-        'year': 1990,
-        'profession_id': 1,
-        'experience': 7,
-    },
-    {
-        'name': 'ცოტნე555 შ3არვაძე',
-        'year': 1997,
-        'profession_id': 1,
-        'experience': 7,
-    },
-    {
-        'name': 'ცოტნე შარვ3აძე',
-        'year': 1997,
-        'profession_id': 2,
-        'experience': 2,
-    },
-    {
-        'name': 'ცოტნე255 შარვ3აძე',
-        'year': 1992,
-        'profession_id': 1,
-        'experience': 7,
-    },
-    {
-        'name': 'ცოტნე2 შარვაძე',
-        'year': 1997,
-        'profession_id': 2,
-        'experience': 1,
-    },
-    {
-        'name': 'ცოტნე2 შარვაძე',
-        'year': 1978,
-        'profession_id': 1,
-        'experience': 7,
-    },
-]
+
+def parseData(arr):
+    for line in arr:
+        line = line.replace("\n", "")
+        line = line.replace(" | ", ",")
+        empty_array = line.split(',')
+
+        obj = {
+            'name': empty_array[0],
+            'year': int(empty_array[1]),
+            'professions': empty_array[2],
+            'profession_id': 0,
+            'experience': int(empty_array[3]),
+        }
+
+        for proff in professions:
+            if obj['professions'] == proff['title']:
+                obj['profession_id'] = proff['id']
+        array.append(obj)
+
+
+parseData(data)
 
 
 def getBiggestNumber(proffesion_id, comparison):
@@ -119,6 +54,7 @@ def getSmallestNumber(proffesion_id, comparison):
             if first_person_age > item[comparison]:
                 first_person_age = item[comparison]
     return first_person_age
+
 
 # getDataInfo(1, 'year', 'პროგრამისტებში ყველაზე ახალგაზრდა:')
 def getDataInfo(proffesion_id, comparison, print_text, is_asc=False):
@@ -140,5 +76,3 @@ getDataInfo(1, 'year', 'პროგრამისტებში ყველ�
 getDataInfo(2, 'experience', 'მომღერლებში ყველაზე "გამოცდილი":')
 getDataInfo(2, 'year', 'მომღერლებში ყველაზე ხანდაზმული:')
 getDataInfo(1, 'experience', 'პროგრამისტებში ყველაზე "გამოუცდილი":', True)
-
-
